@@ -1,0 +1,211 @@
+Standby Server Hazýrlanmasý
+
+1 - Kurulum iþlemi bittikten sonra ilk önce makinalarýn ip ve hostnamelerini nano /etc/hosts dosyasýna yaz... hem sby1 e hem orcl makineye.
+
+2 - tnsnames için /u01/app/oracle/product/11.2.0/db_1/network/admin dizinine tnsnames.ora oluþturulur ve içine ayarlar içinde ;
+
+ORCL =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = lnxdbsrv )(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = orcl.karmed)
+    )
+  )
+
+
+sby1 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = sby1)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SID = sby1)
+    )
+  )
+
+
+  3 - lsnrctl start
+  
+  
+  4 -  pfile için bilinen bi yere c_4 e pfile.ora oluþtur. içine 
+  
+ 
+Db_name=orcl
+Db_unique_name=sby1
+Compatible=11.2.0.4.0
+Db_file_name_convert='/orcl/','/sby1/'
+db_recovery_file_dest_size=40G
+db_recovery_file_dest='/home/oracle/fra'
+
+ 5 - önce fra ve oradata için klasör aç
+ 
+		mkdir /oradata/sby1 / ana sunuda orcl klasörü nerdeyse sby1 de oraya açýlacak
+		mkdir /home/oracle/fra
+
+
+ 6 - sqlplus açýlýr ve içine // sorun olursa yolu kaldýr öyle dene
+ 
+		SQL> startup nomount pfile='/c_4/pfile.ora' ;
+ 
+ 
+ 7 - slqplus a tek tek aþaðadaki komutlar yazýlýr .
+ 
+		SQL> create spfile from pfile='/c_4/pfile.ora' ; 
+		SQL> shu immediate ; 
+		SQL> startup nomount;
+ 
+ 8 -	SQL> alter system set dg_broker_Start=true;
+ 
+ 9  -  	NFS Yapýlandýrma , 
+Kopyalama iþlemleri için NFS tercih ettik. O yüzden NFS yapýlandýrmasý yapýyoruz. Öncelikle Yedeklerin alýcaðý klasörü oluþturalým.
+ 
+		mkdir  /backup
+		chown oracle:oinstall /backup
+ 
+ 10  -  /etc/exports dosyasýna aþaðýdaki ayarlarý girilir. 
+ 
+ /backup               *(rw,sync,no_wdelay,insecure_locks,no_root_squash)
+ 
+ 11 -  Daha sonra nfs servisini yeniden baþlatýnýz.
+
+		service nfs restart
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 12 - ANA SUNUCU YA GEÇÝLÝR
+ 
+ Hosts ,TnsNames dosyasý güncellenir. 
+ 
+hosts  	/etc/hosts
+tnsnames /u01/app/oracle/product/11.2.0/db_1/network/admin
+
+
+sby1 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = sby1)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SID = sby1)
+    )
+  )
+ 
+ 13 - SBY1 üzerindeki diskin mount edilmesi. 
+ 
+nano /etc/fstab
+
+sby1:/backup /backup  nfs  rw,bg,hard,nointr,tcp,vers=3,timeo=300,rsize=32768,wsize=32768,actimeo=0       0 0
+
+ 14 -  	mkdir /backup
+		mount /backup
+		
+
+
+ 15 - Enable archivelog mode / archivelog moduna bakmak için. 
+
+
+	SQL> select log_mode from v$database;
+
+LOG_MODE
+------------
+NOARCHIVELOG
+
+SQL>
+
+		
+ardýndan ; 
+
+shu immediate;
+Startup mount;
+Alter database archivelog;
+Alter database open;
+ 
+ 
+ 16  - SQL> alter database force logging ;
+ 
+ 17 -  SQL> alter database add standby logfile size 50M;
+ 
+ 18 -  SQL> alter system set dg_broker_Start=true;
+ 
+ 19 -  
+ 
+		SQL> alter system set log_archive_config='dg_config=(orcl,sby1)';
+ 
+		SQL> alter system set log_archive_dest_2='SERVICE=sby1 async valid_for=(online_logfile,primary_role) db_unique_name=sby1';
+		
+ 
+ 
+ 20 -  Password dosyasýný SBY1’e kopyala
+ 
+ scp /u01/app/oracle/product/11.2.0/db_1/dbs/orapworcl sby1:/u01/app/oracle/product/11.2.0/db_1/dbs/orapwsby1
+ 
+ 
+ 21 -  screen ile backup almaya baþla...
+ 
+		rman target /
+ 
+		BACKUP incremental level 0 DEVICE TYPE DISK FORMAT '/backup/DbBck_%T_%U' DATABASE PLUS ARCHIVELOG;
+		
+	backup alma iþlemi bittikten sonra. 
+		
+		BACKUP DEVICE TYPE DISK FORMAT '/backup/CtrlFile%U' CURRENT CONTROLFILE FOR STANDBY;  
+		
+		
+		
+		
+ 22 - SBY1 SUNUCUSU ILE IÞLEMLERE DEVAM EDILIR. 
+ 
+	sby1 üzerinden oracle kullanýcýsý ile 
+	
+	rman target sys@orcl auxiliary /           çalýþtýrýlýr ve login olunur. system þifresi girilir. 
+	
+	
+		DUPLICATE TARGET DATABASE FOR STANDBY;
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
