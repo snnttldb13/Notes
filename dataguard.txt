@@ -1,8 +1,8 @@
-Standby Server Hazýrlanmasý
+# Standby Server HazÃ½rlanmasÃ½
 
-1 - Kurulum iþlemi bittikten sonra ilk önce makinalarýn ip ve hostnamelerini nano /etc/hosts dosyasýna yaz... hem sby1 e hem orcl makineye.
+1 - Kurulum iÃ¾lemi bittikten sonra ilk Ã¶nce makinalarÃ½n ip ve hostnamelerini nano /etc/hosts dosyasÃ½na yaz... hem sby1 e hem orcl makineye.
 
-2 - tnsnames için /u01/app/oracle/product/11.2.0/db_1/network/admin dizinine tnsnames.ora oluþturulur ve içine ayarlar içinde ;
+2 - tnsnames iÃ§in /u01/app/oracle/product/11.2.0/db_1/network/admin dizinine tnsnames.ora oluÃ¾turulur ve iÃ§ine ayarlar iÃ§inde ;
 
 ORCL =
   (DESCRIPTION =
@@ -27,7 +27,7 @@ sby1 =
   3 - lsnrctl start
   
   
-  4 -  pfile için bilinen bi yere c_4 e pfile.ora oluþtur. içine 
+  4 -  pfile iÃ§in bilinen bi yere c_4 e pfile.ora oluÃ¾tur. iÃ§ine 
   
  
 Db_name=orcl
@@ -37,18 +37,18 @@ Db_file_name_convert='/orcl/','/sby1/'
 db_recovery_file_dest_size=40G
 db_recovery_file_dest='/home/oracle/fra'
 
- 5 - önce fra ve oradata için klasör aç
+ 5 - Ã¶nce fra ve oradata iÃ§in klasÃ¶r aÃ§
  
-		mkdir /oradata/sby1 / ana sunuda orcl klasörü nerdeyse sby1 de oraya açýlacak
+		mkdir /oradata/sby1 / ana sunuda orcl klasÃ¶rÃ¼ nerdeyse sby1 de oraya aÃ§Ã½lacak
 		mkdir /home/oracle/fra
 
 
- 6 - sqlplus açýlýr ve içine // sorun olursa yolu kaldýr öyle dene
+ 6 - sqlplus aÃ§Ã½lÃ½r ve iÃ§ine // sorun olursa yolu kaldÃ½r Ã¶yle dene
  
 		SQL> startup nomount pfile='/c_4/pfile.ora' ;
  
  
- 7 - slqplus a tek tek aþaðadaki komutlar yazýlýr .
+ 7 - slqplus a tek tek aÃ¾aÃ°adaki komutlar yazÃ½lÃ½r .
  
 		SQL> create spfile from pfile='/c_4/pfile.ora' ; 
 		SQL> shu immediate ; 
@@ -56,17 +56,17 @@ db_recovery_file_dest='/home/oracle/fra'
  
  8 -	SQL> alter system set dg_broker_Start=true;
  
- 9  -  	NFS Yapýlandýrma , 
-Kopyalama iþlemleri için NFS tercih ettik. O yüzden NFS yapýlandýrmasý yapýyoruz. Öncelikle Yedeklerin alýcaðý klasörü oluþturalým.
+ 9  -  	NFS YapÃ½landÃ½rma , 
+Kopyalama iÃ¾lemleri iÃ§in NFS tercih ettik. O yÃ¼zden NFS yapÃ½landÃ½rmasÃ½ yapÃ½yoruz. Ã–ncelikle Yedeklerin alÃ½caÃ°Ã½ klasÃ¶rÃ¼ oluÃ¾turalÃ½m.
  
 		mkdir  /backup
 		chown oracle:oinstall /backup
  
- 10  -  /etc/exports dosyasýna aþaðýdaki ayarlarý girilir. 
+ 10  -  /etc/exports dosyasÃ½na aÃ¾aÃ°Ã½daki ayarlarÃ½ girilir. 
  
  /backup               *(rw,sync,no_wdelay,insecure_locks,no_root_squash)
  
- 11 -  Daha sonra nfs servisini yeniden baþlatýnýz.
+ 11 -  Daha sonra nfs servisini yeniden baÃ¾latÃ½nÃ½z.
 
 		service nfs restart
  
@@ -83,9 +83,9 @@ Kopyalama iþlemleri için NFS tercih ettik. O yüzden NFS yapýlandýrmasý yapýyoruz
  
  
  
- 12 - ANA SUNUCU YA GEÇÝLÝR
+ 12 - ANA SUNUCU YA GEÃ‡ÃLÃR
  
- Hosts ,TnsNames dosyasý güncellenir. 
+ Hosts ,TnsNames dosyasÃ½ gÃ¼ncellenir. 
  
 hosts  	/etc/hosts
 tnsnames /u01/app/oracle/product/11.2.0/db_1/network/admin
@@ -100,7 +100,7 @@ sby1 =
     )
   )
  
- 13 - SBY1 üzerindeki diskin mount edilmesi. 
+ 13 - SBY1 Ã¼zerindeki diskin mount edilmesi. 
  
 nano /etc/fstab
 
@@ -111,7 +111,7 @@ sby1:/backup /backup  nfs  rw,bg,hard,nointr,tcp,vers=3,timeo=300,rsize=32768,ws
 		
 
 
- 15 - Enable archivelog mode / archivelog moduna bakmak için. 
+ 15 - Enable archivelog mode / archivelog moduna bakmak iÃ§in. 
 
 
 	SQL> select log_mode from v$database;
@@ -123,7 +123,7 @@ NOARCHIVELOG
 SQL>
 
 		
-ardýndan ; 
+ardÃ½ndan ; 
 
 shu immediate;
 Startup mount;
@@ -145,29 +145,29 @@ Alter database open;
 		
  
  
- 20 -  Password dosyasýný SBY1’e kopyala
+ 20 -  Password dosyasÃ½nÃ½ SBY1â€™e kopyala
  
  scp /u01/app/oracle/product/11.2.0/db_1/dbs/orapworcl sby1:/u01/app/oracle/product/11.2.0/db_1/dbs/orapwsby1
  
  
- 21 -  screen ile backup almaya baþla...
+ 21 -  screen ile backup almaya baÃ¾la...
  
 		rman target /
  
 		BACKUP incremental level 0 DEVICE TYPE DISK FORMAT '/backup/DbBck_%T_%U' DATABASE PLUS ARCHIVELOG;
 		
-	backup alma iþlemi bittikten sonra. 
+	backup alma iÃ¾lemi bittikten sonra. 
 		
 		BACKUP DEVICE TYPE DISK FORMAT '/backup/CtrlFile%U' CURRENT CONTROLFILE FOR STANDBY;  
 		
 		
 		
 		
- 22 - SBY1 SUNUCUSU ILE IÞLEMLERE DEVAM EDILIR. 
+ 22 - SBY1 SUNUCUSU ILE IÃžLEMLERE DEVAM EDILIR. 
  
-	sby1 üzerinden oracle kullanýcýsý ile 
+	sby1 Ã¼zerinden oracle kullanÃ½cÃ½sÃ½ ile 
 	
-	rman target sys@orcl auxiliary /           çalýþtýrýlýr ve login olunur. system þifresi girilir. 
+	rman target sys@orcl auxiliary /           Ã§alÃ½Ã¾tÃ½rÃ½lÃ½r ve login olunur. system Ã¾ifresi girilir. 
 	
 	
 		DUPLICATE TARGET DATABASE FOR STANDBY;
