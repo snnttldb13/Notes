@@ -10,7 +10,7 @@ nano /etc/hosts
 10.0.0.2    sby1
 ```
 
-- Network ayarlarının devamında tnsnames için $ORACLE_HOME/network/admin dizinine tnsnames.ora dosyası oluşturulur ve içine ayarlar içine tns bilgileri girilir, ardından listener başlatılır.
+- Network ayarlarının devamında tnsnames için $ORACLE_HOME/network/admin dizinine tnsnames.ora dosyası oluşturulur ve içine  tns bilgileri girilir, ardından listener başlatılır.
 
 ```sh
 nano $ORACLE_HOME/network/admin/tnsnames.ora
@@ -39,7 +39,7 @@ sby1 =
   
  - Standby sunucusu için oracle başlangıç parametrelerini belirliyoruz. Bunun için arzu ettiğimiz bir dizinde pfile.ora isimli bir dosya oluşturyor ve içine gerekli parametreleri ekliyoruz. 
         
- 
+ ```
     nano /home/oracle/pfile.ora
  
     Db_name=orcl
@@ -52,7 +52,7 @@ sby1 =
     *.sga_target=30G
     *.open_cursors=750
     *.processes=1500
-
+```
  
 - Oluşturuan parametre dosyası ile standby sunucuda oracle'ı başlatıyor ve parametre dosyasından spfile oluşturuyoruz.
 
