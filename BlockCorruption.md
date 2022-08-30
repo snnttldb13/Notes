@@ -1,4 +1,3 @@
-
 # Block Corruption
 
  Oracle da block bozulmasından şüpheleniyorsak aşağıdaki komut ile herhangi bir block bozulması olup olmadığını kontrol edebiliriz.
@@ -9,7 +8,8 @@ select * from V$DATABASE_BLOCK_CORRUPTION;
 
 ``` 
 
- Eğer sorgu sonucunda hernagi bir bozulmuş block bilgisi dönüyor ise aşağıdaki sorgu ile bozulan blockta ne tür bir datanın olduğunu kontrol edebiliriz.
+ Eğer sorgu sonucunda hernagi bir bozulmuş block bilgisi dönüyor ise aşağıdaki sorgu ile bozulan blockta ne tür bir datanın olduğunu 
+kontrol edebiliriz.
 
 
 ```
@@ -27,4 +27,5 @@ and
       
 ``` 
 
- Bozulan blockta index varsa eğer ilgili indeks silinip yeniden oluşturulabilir. Tablo var ise eğer ve öncesinden alınmış RMAN yedeği varsa block tamiri denenebilir.
+ Bozulan blockta index varsa eğer ilgili indeks silinip yeniden oluşturulabilir. Tablo var ise eğer ve öncesinden alınmış RMAN yedeği 
+varsa block tamiri denenebilir.
