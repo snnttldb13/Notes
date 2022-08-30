@@ -3,10 +3,10 @@
  Oracle da block bozulmasından şüpheleniyorsak aşağıdaki komut ile herhangi bir block bozulması olup olmadığını kontrol edebiliriz.
 
 
-`
+```
 select * from V$DATABASE_BLOCK_CORRUPTION;
 
-` 
+```
 
  Eğer sorgu sonucunda hernagi bir bozulmuş block bilgisi dönüyor ise aşağıdaki sorgu ile bozulan blockta ne tür bir datanın olduğunu 
 kontrol edebiliriz.
