@@ -199,6 +199,8 @@ NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 log_archive_dest_2                   string
 
+
+
 SQL> alter system set log_archive_config='dg_config=(orcl,sby1)';
 SQL> alter system set log_archive_dest_2='SERVICE=sby1 async valid_for=(online_logfile,primary_role) db_unique_name=sby1';
 ```
@@ -212,7 +214,8 @@ SQL> alter system set log_archive_dest_2='SERVICE=sby1 async valid_for=(online_l
 - Yedek almak için gerekli script dosyasını oluşturyor ve içine gerekli parametreleri ekliyoruz.
 ```
 nano /home/oracle/yedekal.rman
-
+```
+```
 run {
     allocate channel C1 type disk;
     allocate channel C2 type disk;
@@ -226,7 +229,7 @@ run {
 ```
 
 
-- Bütün hazırlıklar tamam. Şimdi sıra yedek almada. Yedek alma işini sunucunun kapasitesine göre paralel yapabiliriz. Daha fazla işlemci tüketecek ancak daha hızlı olacaktır. Yedekleme işleminin kesintiye uğramaması için screen penceri içersinde başlatıyoruz.
+- Bütün hazırlıklar tamam. Şimdi sıra yedek almada. Yedek alma işini sunucunun kapasitesine göre paralel yapabiliriz. Daha fazla işlemci tüketecek ancak daha hızlı olacaktır. Yedekleme işleminin kesintiye uğramaması için screen penceresi içersinde başlatıyoruz.
 
 ```
 screen
@@ -238,15 +241,16 @@ RMAN> exit
 		
 ### Duplicate işlemleri
 
-- Standby sunucuya oracle kullancısı ile login oluyoruz. Ardından RMAN ile hem primary hem de standby sunucuya bağlanıyor ve duplicate komutu veriyoruz.
+- Standby sunucuya oracle kullancısı ile login oluyoruz. Ardından RMAN ile hem primary hem de standby sunucuya bağlanıyor ve duplicate komutu veriyoruz. İşlemlerin kesintiye uğramaması için screen kullanıyoruz, ayrıca -L parametresi ile de screen ile log tutuyoruz, olası hatada ne olduğunu anlamak için kullanabiliriz.
  
 ```
+screen -L
 rman target sys@orcl auxiliary /
 RMAN> DUPLICATE TARGET DATABASE FOR STANDBY NOFILENAMECHECK;
 RMAN> exit
 ```	
 
-- Duplicate işlemi tamamlandıktan sonra standby sunucuda standby redolog dosyalarını kontrol ediyoruz. Normal şartlarda duplicate işlemi ile birlikte log dosyaları da otomatik olarak oluşuyor ancak bazı durumlarda hatalar olabiliyor. Kontrol etmek bu açıdan önemli. Standby redologların sayısı ve boyutu replikasyonun sağlıklı çalışabilmesi için yüksek öneme sahip.
+- Duplicate işlemi tamamlandıktan sonra standby sunucuda standby redolog dosyalarını kontrol ediyoruz. Normal şartlarda duplicate işlemi ile birlikte standby redolog dosyaları da otomatik olarak oluşuyor ancak bazı durumlarda hatalar olabiliyor. Kontrol etmek bu açıdan önemli. Standby redologların sayısı ve boyutu replikasyonun sağlıklı çalışabilmesi için yüksek öneme sahip.
 
 ```	
 SQL>  select group#,thread#,bytes from v$standby_log;
