@@ -22,6 +22,7 @@ Burada bazı sistem yönetimi işleri için notlar bulunmakta.
 
 ## Disk Yönetimi
 
+- [ISCSI disk bağlama]
 
 ## Demo
 
@@ -36,3 +37,4 @@ Burada bazı sistem yönetimi işleri için notlar bulunmakta.
 [Standby sunucu elle datafile ekleme]:<https://github.com/snnttldb13/Notes/blob/main/Standby_add_datafile_manually.md>
 
 
+[ISCSI disk bağlama]:<https://github.com/snnttldb13/Notes/blob/main/ISCSI_disk_mount.md>
