@@ -1,6 +1,6 @@
 # Notes
 
-Merhaba
+Merhaba\n
 
 Burada bazı sistem yönetimi işleri için notlar bulunmakta. 
 
