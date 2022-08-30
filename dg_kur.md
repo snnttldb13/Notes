@@ -1,4 +1,4 @@
-# Dataguard kurulumu için yapılacak işlemler aşağıda anlatılmıştır
+# Dataguard Kurulumu
 
 ### Standby Server Hazırlanması
 
