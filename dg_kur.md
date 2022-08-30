@@ -139,7 +139,8 @@ sby1 =
 
 ```
 nano /etc/fstab
-
+```
+```
 sby1:/backup /backup  nfs rw,bg,hard,nointr,tcp,vers=3,timeo=300,rsize=32768,wsize=32768,actimeo=0       0 0
 ```
 - Eğer yoksa primary sunucuda yedekleme için standby sunucuda açılan klasörle aynı isimde bir klasör açıyoruz.
@@ -155,10 +156,11 @@ mount /backup
  select log_mode from v$database;
 
 ```
+```
 LOG_MODE
 ------------
 NOARCHIVELOG
-
+```
 ```
  shu immediate;
 ``` 
