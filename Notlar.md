@@ -1,9 +1,14 @@
 # Notes
-merhaba
-burada bazı faydalı notlar bulabilrsin
-replikasyon kurulumu [için.]
+
+Merhaba
+Burada bazı sistem yönetimi işleri için notlar bulunmakta. 
 
 
-[için.]: <https://github.com/snnttldb13/Notes/blob/main/dg_kur.md>
+## DataGuard
+
+Dataguard kurulumu [için] notlar.
+
+
+[için]: <https://github.com/snnttldb13/Notes/blob/main/dg_kur.md>
 
 
