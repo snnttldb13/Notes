@@ -19,6 +19,7 @@ Burada bazı sistem yönetimi işleri için notlar bulunmakta.
 
 ## Linux
 
+- [HugePages Ayarları]
 
 ## Disk Yönetimi
 
@@ -36,5 +37,6 @@ Burada bazı sistem yönetimi işleri için notlar bulunmakta.
 [Bozulan standby datafile'ları için kurtarma işlemi.]:<https://github.com/snnttldb13/Notes/blob/main/Standby_recover_datafile.md>
 [Standby sunucu elle datafile ekleme]:<https://github.com/snnttldb13/Notes/blob/main/Standby_add_datafile_manually.md>
 
+[HugePages Ayarları]:<https://github.com/snnttldb13/Notes/blob/main/hugepages_settings.md>
 
 [ISCSI disk bağlama]:<https://github.com/snnttldb13/Notes/blob/main/ISCSI_disk_mount.md>
