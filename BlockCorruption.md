@@ -3,7 +3,7 @@
  Oracle da block bozulmasından şüpheleniyorsak aşağıdaki komut ile herhangi bir block bozulması olup olmadığını kontrol edebiliriz.
 
 
-```
+```sql
 select * from V$DATABASE_BLOCK_CORRUPTION;
 
 ```
@@ -12,7 +12,7 @@ select * from V$DATABASE_BLOCK_CORRUPTION;
 kontrol edebiliriz.
 
 
-```
+```sql
 select 
    relative_fno, 
    owner, 
