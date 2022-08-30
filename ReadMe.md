@@ -7,6 +7,7 @@ Burada bazı sistem yönetimi işleri için notlar bulunmakta.
 ## Oracle
 
 - [Block bozulması kontrölü için notlar.]
+- [Undo Tablespace'ini Değiştirme]
 - 
 ## DataGuard
 
@@ -26,6 +27,7 @@ Burada bazı sistem yönetimi işleri için notlar bulunmakta.
 
 
 [Block bozulması kontrölü için notlar.]: <https://github.com/snnttldb13/Notes/blob/main/BlockCorruption.md>
+[Undo Tablespace'ini Değiştirme]:<https://github.com/snnttldb13/Notes/blob/main/undo_tablespace_change.md>
 
 [Dataguard kurulumu için notlar.]: <https://github.com/snnttldb13/Notes/blob/main/dg_kur.md>
 [Single instance standby sunucu datafile taşıma işlemi.]: <https://github.com/snnttldb13/Notes/blob/main/Standby_datafile_rename.md>
