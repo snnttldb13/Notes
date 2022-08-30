@@ -14,6 +14,8 @@ nano /etc/hosts
 
 ```
 nano $ORACLE_HOME/network/admin/tnsnames.ora
+```
+```
 
 ORCL =
   (DESCRIPTION =
@@ -41,7 +43,8 @@ sby1 =
         
  ```
     nano /home/oracle/pfile.ora
- 
+ ```
+ ```
     Db_name=orcl
     Db_unique_name=sby1
     Compatible=11.2.0.4.0
@@ -57,15 +60,21 @@ sby1 =
 - Oluşturuan parametre dosyası ile standby sunucuda oracle'ı başlatıyor ve parametre dosyasından spfile oluşturuyoruz.
 
 ```
-SQL> startup nomount pfile='/c_4/pfile.ora' ;
-SQL> create spfile from pfile='/c_4/pfile.ora' ; 
-SQL> shu immediate ; 
-SQL> startup nomount;
+ startup nomount pfile='/c_4/pfile.ora' ;
+ ```
+ ```
+ create spfile from pfile='/c_4/pfile.ora' ; 
+ ```
+ ```
+ shu immediate ; 
+ ```
+ ```
+ startup nomount;
 ``` 
 
 - Database broker'ı ayarlıyoruz.
 ```
-SQL> alter system set dg_broker_Start=true;
+ alter system set dg_broker_Start=true;
 ```
 
 - Replikasyon kurulumu için yedek alırken network paylaşımlı bir disk kullanabiliriz. NFS kullanmak için diskin paylaşılacağı sunucuda yedekleme için bir dizin oluşturuyoruz. 
