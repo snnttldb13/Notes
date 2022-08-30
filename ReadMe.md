@@ -1,6 +1,7 @@
 # Notes
 
 Merhaba
+
 Burada bazı sistem yönetimi işleri için notlar bulunmakta. 
 
 
