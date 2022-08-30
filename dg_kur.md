@@ -61,8 +61,7 @@ sby1 =
 
 ```
  startup nomount pfile='/c_4/pfile.ora' ;
- ```
- ```
+ ``` ```
  create spfile from pfile='/c_4/pfile.ora' ; 
  ```
  ```
