@@ -3,7 +3,7 @@
 ### Standby Server Hazırlanması
 
 - Standby sunucuda işletim sistemi ve oracle yazılımı kurulduktan sonra ilk adım olarak primary ve standby sunucuların IP ve hostname bilgileri hosts dosyasına yazılır.
-```sh
+```
 nano /etc/hosts
 
 10.0.0.1    orcl
@@ -12,7 +12,7 @@ nano /etc/hosts
 
 - Network ayarlarının devamında tnsnames için $ORACLE_HOME/network/admin dizinine tnsnames.ora dosyası oluşturulur ve içine  tns bilgileri girilir, ardından listener başlatılır.
 
-```sh
+```
 nano $ORACLE_HOME/network/admin/tnsnames.ora
 
 ORCL =
