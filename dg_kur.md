@@ -61,7 +61,8 @@ sby1 =
 
 ```
  startup nomount pfile='/c_4/pfile.ora' ;
- ``` ```
+ ``` 
+ ```
  create spfile from pfile='/c_4/pfile.ora' ; 
  ```
  ```
@@ -72,6 +73,7 @@ sby1 =
 ``` 
 
 - Database broker'ı ayarlıyoruz.
+
 ```
  alter system set dg_broker_Start=true;
 ```
@@ -87,7 +89,9 @@ chown oracle:oinstall /backup
 
 ``` 
 nano /etc/exports
-      /backup               *(rw,sync,no_wdelay,insecure_locks,no_root_squash)
+```
+```
+/backup               *(rw,sync,no_wdelay,insecure_locks,no_root_squash)
 ``` 
 
 - Ardından NFS servisini başlatıyoruz.
@@ -98,16 +102,21 @@ service nfs restart
  
 ### Primary Server Hazırlanması
 
-- Hosts ,TnsNames dosyası güncellenir. 
+- Önce hosts dosyası güncellenir. 
  
-```sh
+```
 nano /etc/hosts
-
+```
+```
 10.0.0.1    orcl
 10.0.0.2    sby1
+```
+- Ardından , tnsnames dosyası güncellenir.
 
+```
 nano $ORACLE_HOME/network/admin/tnsnames.ora
-
+```
+```
 ORCL =
   (DESCRIPTION =
     (ADDRESS = (PROTOCOL = TCP)(HOST = lnxdbsrv )(PORT = 1521))
@@ -128,14 +137,14 @@ sby1 =
 
 - Eğer disk standby sunucudan paylaşıldı ise diski primary sunucuya mount ediyoruz.
 
-```sh 
+```
 nano /etc/fstab
 
 sby1:/backup /backup  nfs rw,bg,hard,nointr,tcp,vers=3,timeo=300,rsize=32768,wsize=32768,actimeo=0       0 0
 ```
 - Eğer yoksa primary sunucuda yedekleme için standby sunucuda açılan klasörle aynı isimde bir klasör açıyoruz.
 
-```sh
+```
 mkdir /backup
 mount /backup
 ```		
@@ -143,17 +152,27 @@ mount /backup
 - Eğer primary sunucu arşiv modda değilse arşiv moda alıyor ve loglamayı zorunlu kılıyoruz. Arşiv mod durumunu öğrenmek ve gerekli ayarları yapmak için;
 
 ```
-SQL> select log_mode from v$database;
+ select log_mode from v$database;
 
+```
 LOG_MODE
 ------------
 NOARCHIVELOG
 
-SQL> shu immediate;
-SQL> Startup mount;
-SQL> Alter database archivelog;
-SQL> Alter database open;
-SQL> alter database force logging ;
+```
+ shu immediate;
+``` 
+```
+ startup mount;
+```
+```
+ alter database archivelog;
+```
+```
+ alter database open;
+```
+```
+ alter database force logging ;
 ```
 
 - Primary sunucunun redolog boyutunu ve sayısını kontrol ediyoruz. Eğer zaten eklenmemiş ise aynı boyut ve sayıda standby redolog ekliyoruz.
