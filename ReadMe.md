@@ -11,7 +11,7 @@ Burada bazı sistem yönetimi işleri için notlar bulunmakta.
 ## DataGuard
 
 - [Dataguard kurulumu için notlar.]
-
+- [Single instance standby sunucu datafile taşıma işlemi.]
 
 ## Linux
 
@@ -22,7 +22,8 @@ Burada bazı sistem yönetimi işleri için notlar bulunmakta.
 ## Demo
 
 
-[Block bozulması kontrölü için notlar.]: <https://github.com/snnttldb13/Notes/blob/c05e5d83c1744f456d0cc0a9b56b06691da251e2/BlockCorruption.md>
+[Block bozulması kontrölü için notlar.]: <https://github.com/snnttldb13/Notes/blob/main/BlockCorruption.md>
+[Single instance standby sunucu datafile taşıma işlemi.]: <https://github.com/snnttldb13/Notes/blob/main/dg_single_instnace_datafile_rename.md>
 [Dataguard kurulumu için notlar.]: <https://github.com/snnttldb13/Notes/blob/main/dg_kur.md>
 
 
