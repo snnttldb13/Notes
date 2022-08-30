@@ -60,22 +60,16 @@ sby1 =
 - Oluşturuan parametre dosyası ile standby sunucuda oracle'ı başlatıyor ve parametre dosyasından spfile oluşturuyoruz.
 
 ```
- startup nomount pfile='/c_4/pfile.ora' ;
- ``` 
- ```
- create spfile from pfile='/c_4/pfile.ora' ; 
- ```
- ```
- shu immediate ; 
- ```
- ```
- startup nomount;
+SQL> startup nomount pfile='/c_4/pfile.ora' ;
+SQL> create spfile from pfile='/c_4/pfile.ora' ; 
+SQL> shu immediate ; 
+SQL> startup nomount;
 ``` 
 
 - Database broker'ı ayarlıyoruz.
 
 ```
- alter system set dg_broker_Start=true;
+SQL> alter system set dg_broker_Start=true;
 ```
 
 - Replikasyon kurulumu için yedek alırken network paylaşımlı bir disk kullanabiliriz. NFS kullanmak için diskin paylaşılacağı sunucuda yedekleme için bir dizin oluşturuyoruz. 
@@ -153,28 +147,18 @@ mount /backup
 - Eğer primary sunucu arşiv modda değilse arşiv moda alıyor ve loglamayı zorunlu kılıyoruz. Arşiv mod durumunu öğrenmek ve gerekli ayarları yapmak için;
 
 ```
- select log_mode from v$database;
+SQL> select log_mode from v$database;
 
-```
-```
 LOG_MODE
 ------------
 NOARCHIVELOG
 ```
 ```
- shu immediate;
-``` 
-```
- startup mount;
-```
-```
- alter database archivelog;
-```
-```
- alter database open;
-```
-```
- alter database force logging ;
+SQL> shu immediate;
+SQL> startup mount;
+SQL> alter database archivelog;
+SQL> alter database open;
+SQL> alter database force logging ;
 ```
 
 - Primary sunucunun redolog boyutunu ve sayısını kontrol ediyoruz. Eğer zaten eklenmemiş ise aynı boyut ve sayıda standby redolog ekliyoruz.
