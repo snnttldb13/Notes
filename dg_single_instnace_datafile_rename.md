@@ -37,7 +37,7 @@ RFS       IDLE
 
 - Parametre değişikliğinin ardından taşınmak istenen datafile'lar işletim sistemi komutları ile yeni konumlarına taşınırlar.
 
-```sql
+```sh
  mv /c_4/oradata/KRMDAUDIT23.DBF /u02/oradata/
 ```
 
