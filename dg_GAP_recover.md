@@ -16,7 +16,7 @@
  - Ardından _primary_ sunucudan, _standby_ sunucu scn numarası ile yedek alınır.
 
  ```
- RMAN>BACKUP INCREMENTAL FROM SCN 13505616134171 DATABASE FORMAT '/yedek/ForStandby_%U' tag 'FORSTANDBY';
+ RMAN> BACKUP INCREMENTAL FROM SCN 13505616134171 DATABASE FORMAT '/yedek/ForStandby_%U' tag 'FORSTANDBY';
  ```
  
  - Alınan yedek _standby_ sunucuya kopyalanabilir veya disk paylaşımı yapılabilir.
